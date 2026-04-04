@@ -1,0 +1,326 @@
+/* ============================================
+   SIMPRO - Custom Stylesheet
+   ============================================ */
+
+:root {
+    --primary:       #1a56db;
+    --primary-dark:  #1341b0;
+    --primary-light: #e8f0fe;
+    --secondary:     #6c757d;
+    --success:       #0f9d58;
+    --warning:       #f4b400;
+    --danger:        #db4437;
+    --info:          #4285f4;
+    --dark:          #1e293b;
+    --sidebar-bg:    #0f172a;
+    --sidebar-text:  #94a3b8;
+    --sidebar-hover: #1e293b;
+    --sidebar-active:#1a56db;
+    --body-bg:       #f1f5f9;
+    --card-shadow:   0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+    --radius:        .5rem;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--body-bg);
+    color: #334155;
+    font-size: 14px;
+}
+
+/* ======= SIDEBAR ======= */
+#sidebar {
+    width: 260px;
+    height: 100vh !important; /* Paksa tinggi layar penuh */
+    background: var(--sidebar-bg);
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1030;
+    transition: all .3s ease;
+    overflow-y: auto !important; /* Aktifkan scrollbar vertikal */
+    overflow-x: hidden;
+    display: block; /* Pastikan bukan flex yang menghambat scroll */
+}
+
+/* Kontainer untuk memberikan ruang di bagian bawah */
+#sidebar .nav {
+    padding-bottom: 5rem !important; 
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+#sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+#sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar .brand {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+#sidebar .brand h5 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: .5px;
+}
+
+#sidebar .brand small {
+    color: var(--sidebar-text);
+    font-size: .75rem;
+}
+
+#sidebar .nav-label {
+    color: #475569;
+    font-size: .7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: .75rem 1.25rem .25rem;
+}
+
+#sidebar .nav-item a {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    padding: .6rem 1.25rem;
+    border-radius: 0;
+    font-size: .875rem;
+    transition: all .2s;
+}
+
+#sidebar .nav-item a:hover {
+    background: var(--sidebar-hover);
+    color: #e2e8f0;
+}
+
+#sidebar .nav-item a.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+#sidebar .nav-item a i {
+    width: 18px;
+    text-align: center;
+    font-size: .9rem;
+}
+
+/* ======= MAIN CONTENT ======= */
+#main-content {
+    margin-left: 260px;
+    min-height: 100vh;
+    transition: all .3s ease;
+}
+
+/* ======= TOPBAR ======= */
+.topbar {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: .75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar .page-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0;
+}
+
+.topbar .user-info {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.topbar .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+/* ======= CARDS ======= */
+.card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #f1f5f9;
+    font-weight: 600;
+    color: var(--dark);
+    padding: .9rem 1.25rem;
+}
+
+/* ======= STAT CARDS ======= */
+.stat-card {
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s;
+}
+
+.stat-card:hover { transform: translateY(-2px); }
+
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: .25;
+    position: absolute;
+    right: 1rem; bottom: .5rem;
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-card .stat-label {
+    font-size: .8rem;
+    opacity: .85;
+    margin-top: .25rem;
+}
+
+.bg-gradient-primary   { background: linear-gradient(135deg, #1a56db, #4285f4); }
+.bg-gradient-warning   { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.bg-gradient-success   { background: linear-gradient(135deg, #059669, #10b981); }
+.bg-gradient-info      { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+.bg-gradient-danger    { background: linear-gradient(135deg, #dc2626, #ef4444); }
+.bg-gradient-secondary { background: linear-gradient(135deg, #475569, #64748b); }
+
+/* ======= TABLES ======= */
+.table-card .table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: .78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.table-card .table td {
+    vertical-align: middle;
+    color: #334155;
+}
+
+/* ======= BADGES ======= */
+.badge-status {
+    padding: .35em .7em;
+    border-radius: 50px;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+/* ======= PAGE BREADCRUMB ======= */
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+}
+
+/* ======= FORMS ======= */
+.form-label { font-weight: 500; color: #475569; font-size: .875rem; }
+.form-control, .form-select {
+    border: 1px solid #e2e8f0;
+    border-radius: .375rem;
+    font-size: .875rem;
+    padding: .5rem .75rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,86,219,.15);
+}
+
+/* ======= PO DETAIL ROWS ======= */
+.po-item-row td { font-size: .85rem; }
+.po-item-row:last-child td { border-bottom: none; }
+
+/* ======= PRINT STYLES ======= */
+@media print {
+    #sidebar, .topbar, .btn, .breadcrumb, .page-header .btn,
+    .no-print { display: none !important; }
+    #main-content { margin-left: 0 !important; }
+    body { background: #fff; }
+    .card { box-shadow: none; border: 1px solid #ddd; }
+}
+
+/* ======= RESPONSIVE ======= */
+.sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 1025;
+    display: none;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+    #sidebar { 
+        transform: translateX(-260px); 
+        box-shadow: none;
+    }
+    #sidebar.show { 
+        transform: translateX(0); 
+        box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+    }
+    #sidebar.show ~ .sidebar-overlay {
+        display: block;
+    }
+    #main-content { margin-left: 0; }
+}
+
+/* ======= LOGIN PAGE ======= */
+.login-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a56db 100%);
+    display: flex; align-items: center; justify-content: center;
+}
+
+.login-card {
+    width: 100%; max-width: 420px;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 25px 60px rgba(0,0,0,.3);
+}
+
+.login-logo {
+    width: 60px; height: 60px;
+    background: var(--primary);
+    border-radius: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.75rem; color: #fff;
+    margin: 0 auto 1rem;
+}
