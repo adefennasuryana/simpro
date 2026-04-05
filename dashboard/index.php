@@ -25,7 +25,7 @@ $nilai_upah = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COALESCE(SUM(to
 // ==========================================
 $mr_menunggu = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COUNT(*) FROM permintaan_bahan WHERE status_permintaan='Diajukan'"));
 $mr_sebagian = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COUNT(*) FROM permintaan_bahan WHERE status_permintaan='Terpenuhi Sebagian'"));
-$po_diproses = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COUNT(*) FROM po WHERE status_po IN ('diproses', 'dikirim_sebagian')"));
+$mr_diproses = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COUNT(*) FROM permintaan_bahan WHERE status_permintaan='Diproses ke PO'"));
 $po_selesai  = mysqli_fetch_column(mysqli_query($koneksi, "SELECT COUNT(*) FROM po WHERE status_po='selesai'"));
 
 // ==========================================
@@ -45,9 +45,18 @@ $po_terbaru = mysqli_query($koneksi, "SELECT p.id_po, p.nomor_po, p.tanggal_po, 
 
 // Proyek Aktif
 $proyek_aktif = mysqli_query($koneksi, "SELECT * FROM proyek WHERE status = 'aktif' ORDER BY tanggal_mulai DESC LIMIT 5");
-
-require_once '../template/header.php';
 ?>
+<style>
+    .card-hover-effect {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .card-hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
+<?php require_once '../template/header.php'; ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
     <div>
@@ -131,30 +140,31 @@ require_once '../template/header.php';
             <div class="card-body">
                 <div class="row g-3 h-100">
                     <div class="col-md-6 col-xl-3">
-                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center <?= $mr_menunggu > 0 && in_array($role, ['manajer', 'admin']) ? 'border-warning bg-warning bg-opacity-10' : '' ?>">
+                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center position-relative card-hover-effect <?= $mr_menunggu > 0 ? 'border-warning bg-warning bg-opacity-10' : 'bg-light' ?>">
                             <div class="display-6 fw-bold text-warning mb-1"><?= $mr_menunggu ?></div>
-                            <div class="small fw-semibold text-muted text-uppercase">MR Menunggu Approval</div>
-                            <?php if(in_array($role, ['manajer', 'admin'])): ?>
-                            <a href="../permintaan/index.php" class="stretched-link"></a>
-                            <?php endif; ?>
+                            <div class="small fw-semibold text-muted text-uppercase">Permintaan Bahan Menunggu Approval</div>
+                            <a href="../permintaan/index.php?status=Diajukan" class="stretched-link"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3">
-                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center border-secondary bg-light">
+                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center position-relative card-hover-effect border-secondary bg-light">
                             <div class="display-6 fw-bold text-secondary mb-1"><?= $mr_sebagian ?></div>
-                            <div class="small fw-semibold text-muted text-uppercase">MR Terpenuhi Sebagian</div>
+                            <div class="small fw-semibold text-muted text-uppercase">Permintaan Bahan Terpenuhi Sebagian</div>
+                            <a href="../permintaan/index.php?status=Terpenuhi Sebagian" class="stretched-link"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3">
-                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center <?= $po_diproses > 0 && in_array($role, ['purchasing', 'admin']) ? 'border-primary bg-primary bg-opacity-10' : '' ?>">
-                            <div class="display-6 fw-bold text-primary mb-1"><?= $po_diproses ?></div>
-                            <div class="small fw-semibold text-muted text-uppercase">PO Sedang Diproses</div>
+                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center position-relative card-hover-effect <?= $mr_diproses > 0 ? 'border-primary bg-primary bg-opacity-10' : 'bg-light' ?>">
+                            <div class="display-6 fw-bold text-primary mb-1"><?= $mr_diproses ?></div>
+                            <div class="small fw-semibold text-muted text-uppercase">Permintaan Bahan Diproses ke PO</div>
+                            <a href="../permintaan/index.php?status=Diproses ke PO" class="stretched-link"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3">
-                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center border-success bg-success bg-opacity-10">
+                        <div class="p-3 border rounded shadow-sm text-center h-100 d-flex flex-column justify-content-center position-relative card-hover-effect border-success bg-success bg-opacity-10">
                             <div class="display-6 fw-bold text-success mb-1"><?= $po_selesai ?></div>
                             <div class="small fw-semibold text-success text-uppercase">PO Selesai / Ditutup</div>
+                            <a href="../po/index.php?status=selesai" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>
